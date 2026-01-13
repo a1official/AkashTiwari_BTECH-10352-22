@@ -14,6 +14,7 @@ A premium, full-stack Task Management application featuring a dynamic Kanban boa
 - **Authentication**: Secure Signup, Login, and Protected Routes.
 - **Kanban Board**: Drag and drop tasks between Pending, In Progress, and Completed columns.
 - **Task CRUD**: Create, Read, Update, and Delete tasks with real-time feedback.
+- **Task Filtering**: Filter tasks by status (Pending, In Progress, Completed) using the API.
 - **User Specific**: Each user can only see and manage their own tasks.
 - **Profile Management**: Update user details and delete account functionality.
 - **Responsive Design**: Optimized for both desktop and mobile devices.
