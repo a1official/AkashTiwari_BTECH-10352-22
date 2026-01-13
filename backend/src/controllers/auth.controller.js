@@ -1,10 +1,15 @@
 const User = require('../models/user.model');
 const jwt = require('jsonwebtoken');
+const { validationResult } = require('express-validator');
 
 // @desc    Register user
 // @route   POST /api/auth/signup
 // @access  Public
 exports.signup = async (req, res, next) => {
+    const errors = validationResult(req);
+    if (!errors.isEmpty()) {
+        return res.status(400).json({ success: false, errors: errors.array() });
+    }
     try {
         const { name, email, password } = req.body;
 
