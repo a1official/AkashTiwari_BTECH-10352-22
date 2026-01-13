@@ -7,6 +7,7 @@ const Dashboard = () => {
     const [tasks, setTasks] = useState([]);
     const [loading, setLoading] = useState(true);
     const [showModal, setShowModal] = useState(false);
+    const [editingTask, setEditingTask] = useState(null);
     const [newTask, setNewTask] = useState({ title: '', description: '', due_date: '', status: 'pending' });
 
     const fetchTasks = async () => {
@@ -27,13 +28,33 @@ const Dashboard = () => {
     const handleCreateTask = async (e) => {
         e.preventDefault();
         try {
-            await api.post('/tasks', newTask);
-            setShowModal(false);
-            setNewTask({ title: '', description: '', due_date: '', status: 'pending' });
+            if (editingTask) {
+                await api.put(`/tasks/${editingTask._id}`, newTask);
+            } else {
+                await api.post('/tasks', newTask);
+            }
+            closeModal();
             fetchTasks();
         } catch (err) {
-            alert('Failed to create task');
+            alert(`Failed to ${editingTask ? 'update' : 'create'} task`);
         }
+    };
+
+    const openEditModal = (task) => {
+        setEditingTask(task);
+        setNewTask({
+            title: task.title,
+            description: task.description,
+            due_date: task.due_date.split('T')[0],
+            status: task.status
+        });
+        setShowModal(true);
+    };
+
+    const closeModal = () => {
+        setShowModal(false);
+        setEditingTask(null);
+        setNewTask({ title: '', description: '', due_date: '', status: 'pending' });
     };
 
     if (loading) return <div className="loading-screen">Loading your workspace...</div>;
@@ -53,12 +74,12 @@ const Dashboard = () => {
                 </div>
             </header>
 
-            <KanbanBoard tasks={tasks} refreshTasks={fetchTasks} />
+            <KanbanBoard tasks={tasks} refreshTasks={fetchTasks} onEditTask={openEditModal} />
 
             {showModal && (
                 <div className="modal-overlay">
                     <div className="modal-content glass">
-                        <h3>Create New Task</h3>
+                        <h3>{editingTask ? 'Edit Task' : 'Create New Task'}</h3>
                         <form onSubmit={handleCreateTask}>
                             <input
                                 type="text"
@@ -88,8 +109,10 @@ const Dashboard = () => {
                                 <option value="completed">Completed</option>
                             </select>
                             <div className="modal-actions">
-                                <button type="button" onClick={() => setShowModal(false)} className="cancel-btn">Cancel</button>
-                                <button type="submit" className="submit-btn">Create Task</button>
+                                <button type="button" onClick={closeModal} className="cancel-btn">Cancel</button>
+                                <button type="submit" className="submit-btn">
+                                    {editingTask ? 'Update Task' : 'Create Task'}
+                                </button>
                             </div>
                         </form>
                     </div>

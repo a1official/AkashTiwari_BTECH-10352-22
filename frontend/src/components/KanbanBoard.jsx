@@ -9,7 +9,7 @@ const COLUMNS = [
     { id: 'completed', title: 'Completed', icon: <CheckCircle2 size={20} className="text-completed" />, color: 'var(--completed)' },
 ];
 
-const KanbanBoard = ({ tasks, refreshTasks }) => {
+const KanbanBoard = ({ tasks, refreshTasks, onEditTask }) => {
     const onDragEnd = async (result) => {
         const { destination, source, draggableId } = result;
 
@@ -78,6 +78,9 @@ const KanbanBoard = ({ tasks, refreshTasks }) => {
                                                         <div className="task-card-header">
                                                             <h4>{task.title}</h4>
                                                             <div className="task-actions">
+                                                                <button className="edit-btn" onClick={() => onEditTask(task)}>
+                                                                    <Edit2 size={16} />
+                                                                </button>
                                                                 <button className="delete-btn" onClick={() => deleteTask(task._id)}>
                                                                     <Trash2 size={16} />
                                                                 </button>
@@ -161,6 +164,7 @@ const KanbanBoard = ({ tasks, refreshTasks }) => {
         .due-date { display: flex; align-items: center; gap: 0.4rem; font-size: 0.8rem; color: var(--text-muted); }
         .task-actions { display: flex; gap: 0.5rem; }
         .delete-btn { color: var(--text-muted); background: transparent; padding: 4px; border-radius: 4px; transition: color 0.2s; }
+        .edit-btn:hover { color: var(--primary); background: rgba(99, 102, 241, 0.1); }
         .delete-btn:hover { color: #ef4444; background: rgba(239, 68, 68, 0.1); }
         
         @media (max-width: 1024px) {
