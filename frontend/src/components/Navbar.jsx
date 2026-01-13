@@ -1,49 +1,48 @@
 import React from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import { useAuth } from '../context/AuthContext';
-import { LayoutDashboard, User, LogOut, CheckSquare } from 'lucide-react';
+import { LayoutDashboard, User, LogOut } from 'lucide-react';
 
 const Navbar = () => {
-    const { user, logout } = useAuth();
-    const navigate = useNavigate();
+  const { user, logout } = useAuth();
+  const navigate = useNavigate();
 
-    const handleLogout = () => {
-        logout();
-        navigate('/login');
-    };
+  const handleLogout = () => {
+    logout();
+    navigate('/login');
+  };
 
-    return (
-        <nav className="navbar glass">
-            <div className="nav-container">
-                <Link to="/" className="nav-logo">
-                    <CheckSquare className="logo-icon" />
-                    <span>KanbanFlow</span>
-                </Link>
+  return (
+    <nav className="navbar glass">
+      <div className="nav-container">
+        <Link to="/" className="nav-logo">
+          <img src="/ozi-logo.png" alt="Ozi" className="logo-img" />
+        </Link>
 
-                {user ? (
-                    <div className="nav-links">
-                        <Link to="/dashboard" className="nav-link">
-                            <LayoutDashboard size={20} />
-                            <span>Dashboard</span>
-                        </Link>
-                        <Link to="/profile" className="nav-link">
-                            <User size={20} />
-                            <span>Profile</span>
-                        </Link>
-                        <button onClick={handleLogout} className="logout-btn">
-                            <LogOut size={20} />
-                            <span>Logout</span>
-                        </button>
-                    </div>
-                ) : (
-                    <div className="nav-links">
-                        <Link to="/login" className="nav-link">Login</Link>
-                        <Link to="/signup" className="signup-btn">Sign Up</Link>
-                    </div>
-                )}
-            </div>
+        {user ? (
+          <div className="nav-links">
+            <Link to="/dashboard" className="nav-link">
+              <LayoutDashboard size={20} />
+              <span>Dashboard</span>
+            </Link>
+            <Link to="/profile" className="nav-link">
+              <User size={20} />
+              <span>Profile</span>
+            </Link>
+            <button onClick={handleLogout} className="logout-btn">
+              <LogOut size={20} />
+              <span>Logout</span>
+            </button>
+          </div>
+        ) : (
+          <div className="nav-links">
+            <Link to="/login" className="nav-link">Login</Link>
+            <Link to="/signup" className="signup-btn">Sign Up</Link>
+          </div>
+        )}
+      </div>
 
-            <style jsx>{`
+      <style jsx>{`
         .navbar {
           position: sticky;
           top: 1rem;
@@ -69,8 +68,9 @@ const Navbar = () => {
           font-weight: 700;
           color: var(--primary);
         }
-        .logo-icon {
-          color: var(--primary);
+        .logo-img {
+          height: 96px;
+          width: auto;
         }
         .nav-links {
           display: flex;
@@ -117,8 +117,8 @@ const Navbar = () => {
           }
         }
       `}</style>
-        </nav>
-    );
+    </nav>
+  );
 };
 
 export default Navbar;

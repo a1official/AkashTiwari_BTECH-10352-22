@@ -65,7 +65,7 @@ const Dashboard = () => {
         <div className="dashboard-container animate-fade-in">
             <header className="dashboard-header">
                 <div className="header-left">
-                    <h1>My Projects</h1>
+                    <h1>Task Management</h1>
                     <p>Manage and track your tasks efficiently.</p>
                 </div>
                 <div className="header-right">
