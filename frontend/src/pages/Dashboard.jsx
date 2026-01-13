@@ -4,6 +4,7 @@ import KanbanBoard from '../components/KanbanBoard';
 import { Plus, Filter } from 'lucide-react';
 
 const Dashboard = () => {
+    const [filter, setFilter] = useState('all');
     const [tasks, setTasks] = useState([]);
     const [loading, setLoading] = useState(true);
     const [showModal, setShowModal] = useState(false);
@@ -12,7 +13,8 @@ const Dashboard = () => {
 
     const fetchTasks = async () => {
         try {
-            const res = await api.get('/tasks');
+            const url = filter === 'all' ? '/tasks' : `/tasks?status=${filter}`;
+            const res = await api.get(url);
             setTasks(res.data.data);
         } catch (err) {
             console.error('Failed to fetch tasks');
@@ -23,7 +25,7 @@ const Dashboard = () => {
 
     useEffect(() => {
         fetchTasks();
-    }, []);
+    }, [filter]);
 
     const handleCreateTask = async (e) => {
         e.preventDefault();
@@ -67,6 +69,15 @@ const Dashboard = () => {
                     <p>Manage and track your tasks efficiently.</p>
                 </div>
                 <div className="header-right">
+                    <div className="filter-group">
+                        <Filter size={18} className="text-muted" />
+                        <select value={filter} onChange={(e) => setFilter(e.target.value)} className="filter-select">
+                            <option value="all">All Status</option>
+                            <option value="pending">Pending</option>
+                            <option value="in-progress">In Progress</option>
+                            <option value="completed">Completed</option>
+                        </select>
+                    </div>
                     <button className="add-task-btn" onClick={() => setShowModal(true)}>
                         <Plus size={20} />
                         <span>New Task</span>
@@ -133,6 +144,9 @@ const Dashboard = () => {
         }
         h1 { font-size: 2.5rem; font-weight: 800; color: var(--text-main); }
         p { color: var(--text-muted); }
+        .header-right { display: flex; align-items: center; gap: 1.5rem; }
+        .filter-group { display: flex; align-items: center; gap: 0.75rem; background: rgba(15, 23, 42, 0.5); padding: 0.5rem 1rem; border-radius: 10px; border: 1px solid var(--glass-border); }
+        .filter-select { background: transparent; border: none; color: white; font-size: 0.9rem; padding-right: 0.5rem; }
         .add-task-btn {
           background: var(--primary);
           color: white;
