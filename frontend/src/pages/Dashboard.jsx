@@ -145,8 +145,8 @@ const Dashboard = () => {
         h1 { font-size: 2.5rem; font-weight: 800; color: var(--text-main); }
         p { color: var(--text-muted); }
         .header-right { display: flex; align-items: center; gap: 1.5rem; }
-        .filter-group { display: flex; align-items: center; gap: 0.75rem; background: rgba(15, 23, 42, 0.5); padding: 0.5rem 1rem; border-radius: 10px; border: 1px solid var(--glass-border); }
-        .filter-select { background: transparent; border: none; color: white; font-size: 0.9rem; padding-right: 0.5rem; }
+        .filter-group { display: flex; align-items: center; gap: 0.75rem; background: #ffffff; padding: 0.5rem 1rem; border-radius: 10px; border: 1px solid var(--glass-border); }
+        .filter-select { background: transparent; border: none; color: var(--text-main); font-size: 0.9rem; padding-right: 0.5rem; }
         .add-task-btn {
           background: var(--primary);
           color: white;
@@ -164,7 +164,8 @@ const Dashboard = () => {
         .modal-overlay {
           position: fixed;
           top: 0; left: 0; right: 0; bottom: 0;
-          background: rgba(0,0,0,0.7);
+          background: rgba(190, 24, 93, 0.1);
+          backdrop-filter: blur(4px);
           display: flex;
           justify-content: center;
           align-items: center;
@@ -174,14 +175,16 @@ const Dashboard = () => {
           width: 100%;
           max-width: 500px;
           padding: 2rem;
+          background: #ffffff;
+          box-shadow: 0 20px 50px rgba(190, 24, 93, 0.15);
         }
         form { display: flex; flex-direction: column; gap: 1rem; margin-top: 1.5rem; }
         input, textarea, select {
           padding: 0.8rem;
-          background: var(--bg-dark);
-          border: 1px solid var(--glass-border);
+          background: #fdf2f8;
+          border: 1px solid rgba(190, 24, 93, 0.1);
           border-radius: 8px;
-          color: white;
+          color: var(--text-main);
         }
         .modal-actions { display: flex; gap: 1rem; margin-top: 1rem; }
         .cancel-btn { flex: 1; background: transparent; color: var(--text-muted); padding: 0.8rem; border-radius: 8px; border: 1px solid var(--glass-border); }

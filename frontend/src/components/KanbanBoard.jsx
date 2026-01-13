@@ -133,15 +133,15 @@ const KanbanBoard = ({ tasks, refreshTasks, onEditTask }) => {
         .text-progress { color: var(--progress); }
         .text-completed { color: var(--completed); }
         .task-count {
-          background: rgba(255,255,255,0.05);
+          background: rgba(190, 24, 93, 0.05);
           padding: 2px 10px;
           border-radius: 20px;
           font-size: 0.85rem;
-          color: var(--text-muted);
+          color: var(--primary);
         }
         .task-list {
           flex: 1;
-          background: rgba(15, 23, 42, 0.3);
+          background: rgba(190, 24, 93, 0.02);
           border-radius: 16px;
           padding: 1rem;
           display: flex;
@@ -150,13 +150,14 @@ const KanbanBoard = ({ tasks, refreshTasks, onEditTask }) => {
           border: 1px dashed var(--glass-border);
           transition: background 0.2s;
         }
-        .dragging-over { background: rgba(99, 102, 241, 0.05); }
+        .dragging-over { background: rgba(190, 24, 93, 0.08); }
         .task-card {
           padding: 1.25rem;
+          background: #ffffff;
           transition: transform 0.2s, box-shadow 0.2s;
         }
-        .task-card:hover { transform: translateY(-2px); box-shadow: 0 10px 20px rgba(0,0,0,0.2); }
-        .task-card.dragging { box-shadow: 0 20px 40px rgba(0,0,0,0.4); opacity: 0.9; }
+        .task-card:hover { transform: translateY(-2px); box-shadow: 0 10px 25px rgba(190, 24, 93, 0.1); }
+        .task-card.dragging { box-shadow: 0 20px 40px rgba(190, 24, 93, 0.2); opacity: 0.9; }
         .task-card-header { display: flex; justify-content: space-between; align-items: flex-start; margin-bottom: 0.75rem; }
         .task-card-header h4 { font-weight: 600; color: var(--text-main); }
         .task-desc { color: var(--text-muted); font-size: 0.9rem; line-height: 1.5; margin-bottom: 1rem; display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; overflow: hidden; }

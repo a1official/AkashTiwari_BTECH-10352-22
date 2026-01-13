@@ -133,10 +133,10 @@ const Profile = () => {
         .input-with-icon input {
           width: 100%;
           padding: 1rem 1rem 1rem 3.5rem;
-          background: rgba(15, 23, 42, 0.5);
-          border: 1px solid var(--glass-border);
+          background: #fdf2f8;
+          border: 1px solid rgba(190, 24, 93, 0.1);
           border-radius: 12px;
-          color: white;
+          color: var(--text-main);
         }
         .save-btn {
           background: var(--primary);

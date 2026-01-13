@@ -4,75 +4,75 @@ import { useAuth } from '../context/AuthContext';
 import { Mail, Lock, LogIn } from 'lucide-react';
 
 const Login = () => {
-    const [email, setEmail] = useState('');
-    const [password, setPassword] = useState('');
-    const [error, setError] = useState('');
-    const [loading, setLoading] = useState(false);
+  const [email, setEmail] = useState('');
+  const [password, setPassword] = useState('');
+  const [error, setError] = useState('');
+  const [loading, setLoading] = useState(false);
 
-    const { login } = useAuth();
-    const navigate = useNavigate();
+  const { login } = useAuth();
+  const navigate = useNavigate();
 
-    const handleSubmit = async (e) => {
-        e.preventDefault();
-        setError('');
-        setLoading(true);
-        try {
-            await login(email, password);
-            navigate('/dashboard');
-        } catch (err) {
-            setError(err.response?.data?.message || 'Login failed. Please check your credentials.');
-        } finally {
-            setLoading(false);
-        }
-    };
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+    setError('');
+    setLoading(true);
+    try {
+      await login(email, password);
+      navigate('/dashboard');
+    } catch (err) {
+      setError(err.response?.data?.message || 'Login failed. Please check your credentials.');
+    } finally {
+      setLoading(false);
+    }
+  };
 
-    return (
-        <div className="auth-page animate-fade-in">
-            <div className="auth-card glass">
-                <h2>Welcome Back</h2>
-                <p className="auth-subtitle">Log in to manage your tasks effectively</p>
+  return (
+    <div className="auth-page animate-fade-in">
+      <div className="auth-card glass">
+        <h2>Welcome Back</h2>
+        <p className="auth-subtitle">Log in to manage your tasks effectively</p>
 
-                {error && <div className="error-message">{error}</div>}
+        {error && <div className="error-message">{error}</div>}
 
-                <form onSubmit={handleSubmit}>
-                    <div className="input-group">
-                        <Mail className="input-icon" size={20} />
-                        <input
-                            type="email"
-                            placeholder="Email Address"
-                            value={email}
-                            onChange={(e) => setEmail(e.target.value)}
-                            required
-                        />
-                    </div>
+        <form onSubmit={handleSubmit}>
+          <div className="input-group">
+            <Mail className="input-icon" size={20} />
+            <input
+              type="email"
+              placeholder="Email Address"
+              value={email}
+              onChange={(e) => setEmail(e.target.value)}
+              required
+            />
+          </div>
 
-                    <div className="input-group">
-                        <Lock className="input-icon" size={20} />
-                        <input
-                            type="password"
-                            placeholder="Password"
-                            value={password}
-                            onChange={(e) => setPassword(e.target.value)}
-                            required
-                        />
-                    </div>
+          <div className="input-group">
+            <Lock className="input-icon" size={20} />
+            <input
+              type="password"
+              placeholder="Password"
+              value={password}
+              onChange={(e) => setPassword(e.target.value)}
+              required
+            />
+          </div>
 
-                    <button type="submit" className="auth-btn" disabled={loading}>
-                        {loading ? 'Logging in...' : (
-                            <>
-                                <LogIn size={20} />
-                                <span>Log In</span>
-                            </>
-                        )}
-                    </button>
-                </form>
+          <button type="submit" className="auth-btn" disabled={loading}>
+            {loading ? 'Logging in...' : (
+              <>
+                <LogIn size={20} />
+                <span>Log In</span>
+              </>
+            )}
+          </button>
+        </form>
 
-                <p className="auth-footer">
-                    Don't have an account? <Link to="/signup">Sign Up</Link>
-                </p>
-            </div>
+        <p className="auth-footer">
+          Don't have an account? <Link to="/signup">Sign Up</Link>
+        </p>
+      </div>
 
-            <style jsx>{`
+      <style jsx>{`
         .auth-page {
           display: flex;
           justify-content: center;
@@ -89,7 +89,7 @@ const Login = () => {
         h2 {
           font-size: 2rem;
           margin-bottom: 0.5rem;
-          background: linear-gradient(to right, #818cf8, #c084fc);
+          background: linear-gradient(to right, #be185d, #db2777);
           -webkit-background-clip: text;
           -webkit-text-fill-color: transparent;
         }
@@ -116,10 +116,10 @@ const Login = () => {
         input {
           width: 100%;
           padding: 0.8rem 1rem 0.8rem 3rem;
-          background: rgba(15, 23, 42, 0.5);
-          border: 1px solid var(--glass-border);
+          background: #fdf2f8;
+          border: 1px solid rgba(190, 24, 93, 0.1);
           border-radius: 8px;
-          color: white;
+          color: var(--text-main);
           transition: border-color 0.3s;
         }
         input:focus {
@@ -164,8 +164,8 @@ const Login = () => {
           font-weight: 600;
         }
       `}</style>
-        </div>
-    );
+    </div>
+  );
 };
 
 export default Login;
