@@ -21,7 +21,7 @@ router
         [
             body('title', 'Title is required').not().isEmpty(),
             body('description', 'Description is required').not().isEmpty(),
-            body('due_date', 'Please include a valid due date').isISO8601()
+            body('due_date', 'Please include a valid due date').isDate()
         ],
         createTask
     );
