@@ -238,6 +238,8 @@ npm test
 ### Dashboard (Kanban Board)
 The main dashboard features a beautiful Kanban board with drag-and-drop functionality.
 
+![Dashboard Screenshot](./screenshots/dashboard.png)
+
 ### Key UI Features
 - 🎨 **White & Dark Pink Theme** - Premium glassmorphism design
 - 📱 **Fully Responsive** - Works on desktop, tablet, and mobile
