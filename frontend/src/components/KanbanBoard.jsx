@@ -196,8 +196,22 @@ const KanbanBoard = ({ tasks: initialTasks, refreshTasks, onEditTask }) => {
         .edit-btn:hover { color: var(--primary); background: rgba(190, 24, 93, 0.08); }
         .delete-btn:hover { color: #ef4444; background: rgba(239, 68, 68, 0.08); }
         
+        
         @media (max-width: 1024px) {
           .kanban-grid { grid-template-columns: 1fr; }
+        }
+        @media (max-width: 768px) {
+          .kanban-grid { gap: 1.25rem; }
+          .kanban-column { padding: 1rem; }
+          .column-header h3 { font-size: 1rem; }
+          .task-card { padding: 1rem; }
+          .task-card-header h4 { font-size: 0.95rem; }
+        }
+        @media (max-width: 480px) {
+          .kanban-grid { gap: 1rem; }
+          .kanban-column { padding: 0.75rem; min-height: 150px; }
+          .task-desc { font-size: 0.85rem; }
+          .due-date { font-size: 0.75rem; }
         }
       `}</style>
         </DragDropContext>

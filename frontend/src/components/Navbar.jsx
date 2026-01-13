@@ -109,11 +109,23 @@ const Navbar = () => {
           color: #ef4444;
         }
         @media (max-width: 768px) {
+          .navbar {
+            margin: 0 0.5rem;
+            padding: 0.75rem 1rem;
+          }
+          .logo-img {
+            height: 60px;
+          }
           .nav-link span, .logout-btn span {
             display: none;
           }
           .nav-links {
-            gap: 1rem;
+            gap: 0.75rem;
+          }
+        }
+        @media (max-width: 480px) {
+          .logo-img {
+            height: 48px;
           }
         }
       `}</style>

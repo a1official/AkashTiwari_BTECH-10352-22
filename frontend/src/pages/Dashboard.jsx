@@ -198,6 +198,36 @@ const Dashboard = () => {
           font-size: 1.5rem;
           color: var(--primary);
         }
+        
+        /* Mobile Responsive Styles */
+        @media (max-width: 768px) {
+          .dashboard { padding: 1rem; }
+          .dashboard-header { 
+            flex-direction: column; 
+            align-items: flex-start;
+            gap: 1rem;
+          }
+          .dashboard-header h1 { font-size: 1.75rem; }
+          .filter-group { width: 100%; }
+          .filter-group select { flex: 1; }
+          .add-task-btn { width: 100%; justify-content: center; }
+          .modal-content { 
+            width: 95%; 
+            margin: 1rem;
+            max-height: 90vh;
+            overflow-y: auto;
+          }
+          .modal-content h2 { font-size: 1.25rem; }
+          .form-actions { flex-direction: column; }
+          .cancel-btn, .submit-btn { width: 100%; }
+        }
+        
+        @media (max-width: 480px) {
+          .dashboard { padding: 0.75rem; }
+          .dashboard-header h1 { font-size: 1.5rem; }
+          .add-task-btn { padding: 0.6rem 1rem; font-size: 0.9rem; }
+          .modal-content { padding: 1.25rem; }
+        }
       `}</style>
         </div>
     );

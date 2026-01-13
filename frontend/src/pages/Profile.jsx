@@ -176,6 +176,20 @@ const Profile = () => {
           transition: background 0.3s;
         }
         .delete-account-btn:hover { background: rgba(239, 68, 68, 0.2); }
+        
+        /* Mobile Responsive Styles */
+        @media (max-width: 768px) {
+          .profile-page { padding: 1rem; }
+          .profile-card { padding: 2rem 1.5rem; }
+          .profile-card h1 { font-size: 1.75rem; }
+          .form-grid { grid-template-columns: 1fr; }
+          .form-actions { flex-direction: column; }
+          .save-btn { width: 100%; }
+        }
+        @media (max-width: 480px) {
+          .profile-card { padding: 1.5rem 1rem; }
+          .profile-card h1 { font-size: 1.5rem; }
+        }
       `}</style>
         </div>
     );

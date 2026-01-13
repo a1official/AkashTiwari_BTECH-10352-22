@@ -99,6 +99,18 @@ const Signup = () => {
         .error-message { background: rgba(239, 68, 68, 0.1); color: #ef4444; padding: 0.75rem; border-radius: 8px; margin-bottom: 1.5rem; border: 1px solid rgba(239, 68, 68, 0.2); }
         .auth-footer { margin-top: 2rem; color: var(--text-muted); font-size: 0.9rem; }
         .auth-footer a { color: var(--primary); font-weight: 600; }
+        
+        /* Mobile Responsive Styles */
+        @media (max-width: 768px) {
+          .auth-page { padding: 1rem; }
+          .auth-card { padding: 2rem 1.5rem; }
+          h2 { font-size: 1.75rem; }
+        }
+        @media (max-width: 480px) {
+          .auth-card { padding: 1.5rem 1rem; }
+          h2 { font-size: 1.5rem; }
+          .auth-btn { padding: 0.8rem; }
+        }
       `}</style>
         </div>
     );

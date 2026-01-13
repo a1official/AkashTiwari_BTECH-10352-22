@@ -163,6 +163,31 @@ const Login = () => {
           color: var(--primary);
           font-weight: 600;
         }
+        
+        /* Mobile Responsive Styles */
+        @media (max-width: 768px) {
+          .auth-container {
+            padding: 1rem;
+          }
+          .auth-card {
+            padding: 2rem 1.5rem;
+          }
+          .auth-card h1 {
+            font-size: 1.75rem;
+          }
+        }
+        
+        @media (max-width: 480px) {
+          .auth-card {
+            padding: 1.5rem 1rem;
+          }
+          .auth-card h1 {
+            font-size: 1.5rem;
+          }
+          .auth-btn {
+            padding: 0.8rem;
+          }
+        }
       `}</style>
     </div>
   );
