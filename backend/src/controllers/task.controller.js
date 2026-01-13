@@ -1,4 +1,5 @@
 const Task = require('../models/task.model');
+const { validationResult } = require('express-validator');
 
 // @desc    Get all tasks
 // @route   GET /api/tasks
@@ -76,6 +77,10 @@ exports.getTask = async (req, res, next) => {
 // @route   POST /api/tasks
 // @access  Private
 exports.createTask = async (req, res, next) => {
+    const errors = validationResult(req);
+    if (!errors.isEmpty()) {
+        return res.status(400).json({ success: false, errors: errors.array() });
+    }
     try {
         req.body.userId = req.user.id;
 
