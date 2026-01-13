@@ -8,8 +8,8 @@
   --pending: #f59e0b;
   --progress: #be185d;
   --completed: #10b981;
-  --glass: rgba(255, 255, 255, 0.7);
-  --glass-border: rgba(190, 24, 93, 0.1);
+  --glass: rgba(255, 255, 255, 0.85);
+  --glass-border: rgba(190, 24, 93, 0.15);
 }
 
 * {
@@ -51,7 +51,6 @@ textarea {
   -webkit-backdrop-filter: blur(12px);
   border: 1px solid var(--glass-border);
   border-radius: 12px;
-  box-shadow: 0 8px 32px 0 rgba(190, 24, 93, 0.05);
 }
 
 /* Custom Scrollbar */
@@ -64,12 +63,12 @@ textarea {
 }
 
 ::-webkit-scrollbar-thumb {
-  background: #cbd5e1;
+  background: #e2a2b9;
   border-radius: 10px;
 }
 
 ::-webkit-scrollbar-thumb:hover {
-  background: #94a3b8;
+  background: #be185d;
 }
 
 @keyframes fadeIn {

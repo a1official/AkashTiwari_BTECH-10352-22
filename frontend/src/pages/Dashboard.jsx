@@ -182,7 +182,7 @@ const Dashboard = () => {
         input, textarea, select {
           padding: 0.8rem;
           background: #fdf2f8;
-          border: 1px solid rgba(190, 24, 93, 0.1);
+          border: 1px solid rgba(190, 24, 93, 0.15);
           border-radius: 8px;
           color: var(--text-main);
         }

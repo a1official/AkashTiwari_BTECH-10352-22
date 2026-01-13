@@ -93,7 +93,7 @@ const Signup = () => {
         form { display: flex; flex-direction: column; gap: 1.25rem; }
         .input-group { position: relative; display: flex; align-items: center; }
         .input-icon { position: absolute; left: 1rem; color: var(--text-muted); }
-        input { width: 100%; padding: 0.8rem 1rem 0.8rem 3rem; background: #fdf2f8; border: 1px solid rgba(190, 24, 93, 0.1); border-radius: 8px; color: var(--text-main); }
+        input { width: 100%; padding: 0.8rem 1rem 0.8rem 3rem; background: #fdf2f8; border: 1px solid rgba(190, 24, 93, 0.15); border-radius: 8px; color: var(--text-main); }
         .auth-btn { background: var(--primary); color: white; padding: 0.8rem; border-radius: 8px; font-weight: 600; display: flex; justify-content: center; align-items: center; gap: 0.5rem; transition: transform 0.2s; }
         .auth-btn:hover { transform: translateY(-2px); background: var(--primary-hover); }
         .error-message { background: rgba(239, 68, 68, 0.1); color: #ef4444; padding: 0.75rem; border-radius: 8px; margin-bottom: 1.5rem; border: 1px solid rgba(239, 68, 68, 0.2); }

@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import { DragDropContext, Droppable, Draggable } from '@hello-pangea/dnd';
 import api from '../api/axios';
 import { Clock, AlertCircle, CheckCircle2, Trash2, Edit2 } from 'lucide-react';
@@ -9,38 +9,61 @@ const COLUMNS = [
     { id: 'completed', title: 'Completed', icon: <CheckCircle2 size={20} className="text-completed" />, color: 'var(--completed)' },
 ];
 
-const KanbanBoard = ({ tasks, refreshTasks, onEditTask }) => {
+const KanbanBoard = ({ tasks: initialTasks, refreshTasks, onEditTask }) => {
+    const [localTasks, setLocalTasks] = useState(initialTasks);
+    const [enabled, setEnabled] = useState(false);
+
+    // Sync local state with props
+    useEffect(() => {
+        setLocalTasks(initialTasks);
+    }, [initialTasks]);
+
+    // Fix for React 18 Strict Mode - delay enabling droppable
+    useEffect(() => {
+        const animation = requestAnimationFrame(() => setEnabled(true));
+        return () => {
+            cancelAnimationFrame(animation);
+            setEnabled(false);
+        };
+    }, []);
+
     const onDragEnd = async (result) => {
         const { destination, source, draggableId } = result;
 
         if (!destination) return;
         if (destination.droppableId === source.droppableId && destination.index === source.index) return;
 
+        // Optimistic update - update local state immediately
+        const updatedTasks = localTasks.map(task =>
+            task._id === draggableId ? { ...task, status: destination.droppableId } : task
+        );
+        setLocalTasks(updatedTasks);
+
         try {
-            // Find the task
-            const task = tasks.find(t => t._id === draggableId);
-            if (!task) return;
-
-            // Update status in backend
             await api.put(`/tasks/${draggableId}`, { status: destination.droppableId });
-
-            // Refresh to get updated state
-            refreshTasks();
         } catch (err) {
             console.error('Failed to update task status');
+            // Rollback on error
+            refreshTasks();
         }
     };
 
     const deleteTask = async (id) => {
         if (window.confirm('Are you sure you want to delete this task?')) {
+            // Optimistic delete
+            setLocalTasks(prev => prev.filter(t => t._id !== id));
             try {
                 await api.delete(`/tasks/${id}`);
-                refreshTasks();
             } catch (err) {
                 alert('Failed to delete task');
+                refreshTasks();
             }
         }
     };
+
+    if (!enabled) {
+        return null;
+    }
 
     return (
         <DragDropContext onDragEnd={onDragEnd}>
@@ -53,18 +76,18 @@ const KanbanBoard = ({ tasks, refreshTasks, onEditTask }) => {
                                 <h3>{column.title}</h3>
                             </div>
                             <span className="task-count">
-                                {tasks.filter(t => t.status === column.id).length}
+                                {localTasks.filter(t => t.status === column.id).length}
                             </span>
                         </div>
 
                         <Droppable droppableId={column.id}>
                             {(provided, snapshot) => (
                                 <div
-                                    {...provided.droppableId}
                                     ref={provided.innerRef}
+                                    {...provided.droppableProps}
                                     className={`task-list ${snapshot.isDraggingOver ? 'dragging-over' : ''}`}
                                 >
-                                    {tasks
+                                    {localTasks
                                         .filter((task) => task.status === column.id)
                                         .map((task, index) => (
                                             <Draggable key={task._id} draggableId={task._id} index={index}>
@@ -74,14 +97,18 @@ const KanbanBoard = ({ tasks, refreshTasks, onEditTask }) => {
                                                         {...provided.draggableProps}
                                                         {...provided.dragHandleProps}
                                                         className={`task-card glass ${snapshot.isDragging ? 'dragging' : ''}`}
+                                                        style={{
+                                                            ...provided.draggableProps.style,
+                                                            cursor: snapshot.isDragging ? 'grabbing' : 'grab'
+                                                        }}
                                                     >
                                                         <div className="task-card-header">
                                                             <h4>{task.title}</h4>
                                                             <div className="task-actions">
-                                                                <button className="edit-btn" onClick={() => onEditTask(task)}>
+                                                                <button className="edit-btn" onClick={(e) => { e.stopPropagation(); onEditTask(task); }}>
                                                                     <Edit2 size={16} />
                                                                 </button>
-                                                                <button className="delete-btn" onClick={() => deleteTask(task._id)}>
+                                                                <button className="delete-btn" onClick={(e) => { e.stopPropagation(); deleteTask(task._id); }}>
                                                                     <Trash2 size={16} />
                                                                 </button>
                                                             </div>
@@ -133,7 +160,7 @@ const KanbanBoard = ({ tasks, refreshTasks, onEditTask }) => {
         .text-progress { color: var(--progress); }
         .text-completed { color: var(--completed); }
         .task-count {
-          background: rgba(190, 24, 93, 0.05);
+          background: rgba(190, 24, 93, 0.08);
           padding: 2px 10px;
           border-radius: 20px;
           font-size: 0.85rem;
@@ -141,7 +168,7 @@ const KanbanBoard = ({ tasks, refreshTasks, onEditTask }) => {
         }
         .task-list {
           flex: 1;
-          background: rgba(190, 24, 93, 0.02);
+          background: rgba(190, 24, 93, 0.03);
           border-radius: 16px;
           padding: 1rem;
           display: flex;
@@ -154,19 +181,20 @@ const KanbanBoard = ({ tasks, refreshTasks, onEditTask }) => {
         .task-card {
           padding: 1.25rem;
           background: #ffffff;
+          border: 1px solid var(--glass-border);
           transition: transform 0.2s, box-shadow 0.2s;
         }
         .task-card:hover { transform: translateY(-2px); box-shadow: 0 10px 25px rgba(190, 24, 93, 0.1); }
-        .task-card.dragging { box-shadow: 0 20px 40px rgba(190, 24, 93, 0.2); opacity: 0.9; }
+        .task-card.dragging { box-shadow: 0 20px 40px rgba(190, 24, 93, 0.2); opacity: 0.95; }
         .task-card-header { display: flex; justify-content: space-between; align-items: flex-start; margin-bottom: 0.75rem; }
         .task-card-header h4 { font-weight: 600; color: var(--text-main); }
         .task-desc { color: var(--text-muted); font-size: 0.9rem; line-height: 1.5; margin-bottom: 1rem; display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; overflow: hidden; }
         .task-card-footer { display: flex; align-items: center; justify-content: space-between; }
         .due-date { display: flex; align-items: center; gap: 0.4rem; font-size: 0.8rem; color: var(--text-muted); }
         .task-actions { display: flex; gap: 0.5rem; }
-        .delete-btn { color: var(--text-muted); background: transparent; padding: 4px; border-radius: 4px; transition: color 0.2s; }
-        .edit-btn:hover { color: var(--primary); background: rgba(99, 102, 241, 0.1); }
-        .delete-btn:hover { color: #ef4444; background: rgba(239, 68, 68, 0.1); }
+        .edit-btn, .delete-btn { color: var(--text-muted); background: transparent; padding: 4px; border-radius: 4px; transition: all 0.2s; }
+        .edit-btn:hover { color: var(--primary); background: rgba(190, 24, 93, 0.08); }
+        .delete-btn:hover { color: #ef4444; background: rgba(239, 68, 68, 0.08); }
         
         @media (max-width: 1024px) {
           .kanban-grid { grid-template-columns: 1fr; }

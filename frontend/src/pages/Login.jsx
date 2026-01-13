@@ -117,7 +117,7 @@ const Login = () => {
           width: 100%;
           padding: 0.8rem 1rem 0.8rem 3rem;
           background: #fdf2f8;
-          border: 1px solid rgba(190, 24, 93, 0.1);
+          border: 1px solid rgba(190, 24, 93, 0.15);
           border-radius: 8px;
           color: var(--text-main);
           transition: border-color 0.3s;
