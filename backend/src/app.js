@@ -29,7 +29,7 @@ if (fs.existsSync(frontendPath)) {
     app.use(express.static(frontendPath));
 
     // Handle React routing - return index.html for all non-API routes
-    app.get('*', (req, res) => {
+    app.get('/{*path}', (req, res) => {
         res.sendFile(path.join(frontendPath, 'index.html'));
     });
 } else {
