@@ -2,6 +2,10 @@
 
 A premium, full-stack Task Management application featuring a dynamic **Kanban board**, secure **user authentication**, and **responsive design**. Built with React and Node.js.
 
+## 🌐 Live Demo
+
+**[https://akashtiwari-btech-10352-22.onrender.com](https://akashtiwari-btech-10352-22.onrender.com)**
+
 ---
 
 ## 📌 Project Overview
